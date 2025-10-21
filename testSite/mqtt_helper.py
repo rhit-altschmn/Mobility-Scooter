@@ -31,12 +31,12 @@ class MqttClient(object):
     self.callback = None
 
   def connect(self, subscription_topic_name, publish_topic_name,
-              mqtt_broker_ip_address="mosquitto.csse.rose-hulman.edu",
-              use_off_campus_broker=False):
-    if mqtt_broker_ip_address == "mosquitto.csse.rose-hulman.edu" and use_off_campus_broker:
-      default_off_campus_broker = "test.mosquitto.org" # or broker.hivemq.com
-      print(f"Using {default_off_campus_broker} instead of mosquitto.csse.rose-hulman.edu")
-      mqtt_broker_ip_address = default_off_campus_broker 
+              mqtt_broker_ip_address="test.mosquitto.org",
+              use_other_broker=False):
+    if mqtt_broker_ip_address == "test.mosquitto.org" and use_other_broker:
+      other_broker = "broker.hivemq.com"
+      print(f"Using {other_broker} instead of test.mosquitto.org")
+      mqtt_broker_ip_address = other_broker 
     self.subscription_topic_name = subscription_topic_name
     self.publish_topic_name = publish_topic_name
 
