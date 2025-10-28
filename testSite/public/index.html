@@ -3,33 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PlateLoader</title>
+    <title>Mobile Scooter Site</title>
 </head>
 <body>
-    <h1>Plate Loader</h1>
+    <h1>Test Scooter Page</h1>
     <p id="responseText"> The response will go here </p>
     <br>
-    <button id = "resetButton"> RESET </button>
     <hr>
-    <button id = "X1"> X-AXIS 1 </button>
-    <button id = "X2"> X-AXIS 2 </button>
-    <button id = "X3"> X-AXIS 3 </button>
-    <button id = "X4"> X-AXIS 4 </button>
-    <button id = "X5"> X-AXIS 5 </button>
+    <h2>Live Stream</h2>
+    <img src="{{ url_for('video_feed') }}" alt = "Camera feed here"  width="640" height="480">
     <hr>
-    From index:<input type="number" id = "fromIndex" value="1">
-    To index:<input type="number" id = "toIndex" value="5">
-    <button id="move">Move</button>
+    <button id = "FC"> Front Cam </button>
+    <button id = "BC"> Back Cam </button>
+    <button id = "SC"> Side Cam </button>
+    <br>
     <hr>
-    <button id = "ZE"> Z-AXIS EXTEND </button>
-    <button id = "ZR"> Z-AXIS RETRACT </button>
-    <hr>
-    <button id = "GO"> GRIPPER OPEN  </button>
-    <button id = "GC"> GRIPPER CLOSE </button>
-    <hr>
-    <button id = "STAT"> LOADER_STATUS </button>
+    <br>
+    <h2>Drive Controls</h2>
+    <button id = "F"> FORWARD </button>
+    <br>
+    <button id = "L"> LEFT  </button>
+    <button id = "R"> RIGHT </button>
+    <br>
+    <button id = "B"> BACKWARD </button>
     <hr>
 
+    
 </body>
 <!-- Load the scrip at the end of the body -->
 <script src="main.js"></script> 
