@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mobile Scooter Site</title>
+</head>
+<body>
+    <h1>Test Scooter Page</h1>
+    <p id="responseText"> The response will go here </p>
+    <br>
+    <hr>
+    <h2>Live Stream</h2>
+    <img src="{{ url_for('video_feed') }}" alt = "Camera feed here"  width="320" height="240">
+    <hr>
+    <button style="height:50px;width:100px" font = large id = "FC"> Front Cam </button>
+    <button style="height:50px;width:100px" font = large id = "BC"> Back Cam </button>
+    <button style="height:50px;width:100px" font = large id = "SC"> Side Cam </button>
+    <br>
+    <hr>
+    <h2>Drive Controls</h2>
+    <button style="height:50px;width:100px" font = large id = "F"> FORWARD </button>
+    <br>
+    <button style="height:50px;width:100px" font = large id = "L"> LEFT  </button>
+    <button style="height:50px;width:100px" font = large id = "R"> RIGHT </button>
+    <br>
+    <button style="height:50px;width:100px" font = large id = "B"> BACKWARD </button>
+    <hr>
+
+    
+</body>
+<!-- Load the scrip at the end of the body -->
+<script src="testmain.js"></script> 
+</html>
