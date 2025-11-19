@@ -4,6 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mobile Scooter Site</title>
+<style>
+    .container {
+    display: grid;
+    grid-template-columns: 115px 115px 115px;
+    background-color: white;
+    align-content: center;
+    }
+    .container div {
+    background-color: solid white;
+    border: 0.1px solid rgb(201, 201, 201);
+    padding: 5px;
+    font-size: 10px;
+    text-align: center;
+    align-content: center;
+    }
+</style>
+
 </head>
 <body>
     <h1>Test Scooter Page</h1>
@@ -13,18 +30,23 @@
     <h2>Live Stream</h2>
     <img src="{{ url_for('video_feed') }}" alt = "Camera feed here"  width="320" height="240">
     <hr>
-    <button style="height:50px;width:100px" font = large id = "FC"> Front Cam </button>
-    <button style="height:50px;width:100px" font = large id = "BC"> Back Cam </button>
-    <button style="height:50px;width:100px" font = large id = "SC"> Side Cam </button>
+    <button style="height:50px; width:100px" font = large id = "FC"> Front Cam </button>
+    <button style="height:50px; width:100px" font = large id = "BC"> Back Cam </button>
+    <button style="height:50px; width:100px" font = large id = "SC"> Side Cam </button>
     <br>
     <hr>
     <h2>Drive Controls</h2>
-    <button style="height:50px;width:100px" font = large id = "F"> FORWARD </button>
-    <br>
-    <button style="height:50px;width:100px" font = large id = "L"> LEFT  </button>
-    <button style="height:50px;width:100px" font = large id = "R"> RIGHT </button>
-    <br>
-    <button style="height:50px;width:100px" font = large id = "B"> BACKWARD </button>
+    <p id="scooterInfo"> Heading: # Sensors: # </p>
+    <div class="container">
+    <div></input></div>
+    <div><button style="height:50px; width:100px" font = large id = "F"> FORWARD </button></div>
+    <div></div>
+    <div><button style="height:50px; width:100px" font = large id = "L"> LEFT</button></div>
+    <div><button style="height:50px; width:100px" font = large id = "C"> CENTER </button></div>
+    <div><button style="height:50px; width:100px" font = large id = "R"> RIGHT </button></div>
+    <div></div>
+    <div><button style="height:50px; width:100px" font = large id = "B"> BACKWARD </button></div>
+    <div></div>
     <hr>
 
     

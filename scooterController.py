@@ -18,13 +18,37 @@ def __init__(self):
     sleep(5)
 
 
-def controlCommand(self, command):
+def controlCommand(self,command):
+    print(f"Controller Read: {command}")
     match command:
+
         case "LEFT":
             self.heading = self.heading -10
             if self.heading < -67.5:
                 self.heading = -60
+            # motor_driver.turn_to_angle(self.heading)
+        case "CENTER":
+            self.heading = 0
+            # motor_driver.turn_to_angle(self.heading)
+        case "RIGHT":
+            self.heading = self.heading + 10
+            if self.heading > 67.5:
+                self.heading = 60
+            # motor_driver.turn_to_angle(self.heading)
+        case "FORWARD":
+            # call the actual gas pedal thing here
+            print(f"Calling Drive Forward. Heading: {self.heading}")
+            sleep(1)
+            # pwm.stop()
+            # GPIO.cleanup()
+        case "REVERSE":
+            # call the actual gas pedal thing here
+            print(f"Calling Drive Backward. Heading: {self.heading}")
+            sleep(1)
+            # pwm.stop()
+            # GPIO.cleanup()
 
+    return command,self.heading
 
 
 

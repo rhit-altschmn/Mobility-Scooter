@@ -19,6 +19,9 @@ function main(){
     document.querySelector("#L").onclick = () => {
         sendCommand("LEFT");
     };
+    document.querySelector("#C").onclick = () => {
+        sendCommand("CENTER");
+    };
     document.querySelector("#R").onclick = () => {
         sendCommand("RIGHT");
     };
@@ -29,8 +32,11 @@ async function sendCommand(command){
     let response = await fetch(`/api/${command}`);
     let responseText = await response.text();
     console.log(responseText);
+    const respArray = responseText.split("?")
     //TODO: Actually show the user on screen
     document.querySelector("#responseText").innerHTML = responseText;
+    const infoText = "Heading: " + respArray[1] + "  Sensors: ##"
+    document.querySelector("#scooterInfo").innerHTML = infoText;
 }
 
 main();
