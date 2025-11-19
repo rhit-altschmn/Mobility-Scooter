@@ -26,12 +26,21 @@ def cpu_speed():
 	with open("/sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq") as cpu:
 		return int(cpu.read().strip()) / 1000 # Convert to mHz
 
+# Function version with just distances
+def distance_read(ports):
+	distances = [] 
+	for ser in ports: # Add each distance reading
+		dist = read_dist(ser)
+		distances.append(dist)
+	return distances
+
 while True:
 	distances = [] 
 	for i, ser in enumerate(ports): # Add each distance reading
 		dist = read_dist(ser)
-		distances.append(f"S{i+1}: {dist} mm")
+		distances.append(dist)
 	speed = cpu_speed()
 	distances.append(f"CPU Speed: {speed}")
 	print(" ".join(distances))
 	time.sleep(0.05)
+
