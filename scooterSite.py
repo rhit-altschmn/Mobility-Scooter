@@ -27,9 +27,9 @@ def command_api(command):
         # resp = pl.send_command(command)
         # pl.disconnect()
 
-        resp_cmd,heading = cont.controlCommand(cont,command)
-        print(f"Site Incoming command: {resp_cmd} Heading:{heading}")
-        response = resp_cmd + "?" + str(heading)
+        resp_cmd,heading,dists = cont.controlCommand(cont,command)
+        print(f"Site Incoming command: {resp_cmd} Heading:{heading} Distances:{dists}")
+        response = resp_cmd + "?" + str(heading) +"?" + str(dists)
         print(response)
         return response
     

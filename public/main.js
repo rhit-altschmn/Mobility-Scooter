@@ -35,7 +35,8 @@ async function sendCommand(command){
     const respArray = responseText.split("?")
     //TODO: Actually show the user on screen
     document.querySelector("#responseText").innerHTML = responseText;
-    const infoText = "Heading: " + respArray[1] + "  Sensors: ##"
+    
+    const infoText = "Heading: " + respArray[1] + "  Sensors: " + respArray[2]
     document.querySelector("#scooterInfo").innerHTML = infoText;
 }
 

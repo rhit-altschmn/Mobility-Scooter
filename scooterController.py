@@ -1,8 +1,15 @@
 #import RPi.GPIO as GPIO
 from time import sleep
 
-import motor_driver
+# import motor_driver
 #GPIO.setmode(GPIO.BOARD)
+
+# import serial
+# import ultrasonic
+import random
+
+
+
 
 def __init__(self):
     #GPIO.setup(11,GPIO.OUT) #change this pin as needed
@@ -15,11 +22,36 @@ def __init__(self):
     #set motor to neutral
     #self.pwm.start(7.5) #sets pwm to 7.5% of duty cycle, or 1.5ms
     self.heading = 0
-    sleep(5)
+    print("resetting header")
+    sleep(1)
+
+    # Assigned Pins:
+	# S1: Blue(TX) to GPIO14, Green(RX) to GPIO15
+	# S2: TX to GPIO4, RX to GPIO5
+	# S3: TX to GPIO8, RX to GPIO9
+	# S4: TX to GPIO12, RX to GPIO13
+    # Setting serial ports for each sensors, skip AMA1
+    # self.ports=[
+    #     serial.Serial("/dev/ttyAMA0",9600,timeout=0.1),
+    #     serial.Serial("/dev/ttyAMA3",9600,timeout=0.1),
+    #     serial.Serial("/dev/ttyAMA4",9600,timeout=0.1),
+    #     serial.Serial("/dev/ttyAMA5",9600,timeout=0.1)
+    # ]
+    # # Flushing ports and waiting for sensors to stabilize
+    # print("Resetting serial ports")
+    # for ser in self.ports:
+    #     ser.reset_input_buffer()
+    sleep(1.0)
+
+    self.distances = [0,0,0,0]
 
 
 def controlCommand(self,command):
     print(f"Controller Read: {command}")
+    
+    # self.distances = ultrasonic.distance_read(self.ports)
+    self.distances = [random.randint(0,9),random.randint(0,9),random.randint(0,9),random.randint(0,9)]
+    
     match command:
 
         case "LEFT":
@@ -48,7 +80,7 @@ def controlCommand(self,command):
             # pwm.stop()
             # GPIO.cleanup()
 
-    return command,self.heading
+    return command,self.heading,self.distances
 
 
 
