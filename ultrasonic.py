@@ -8,9 +8,9 @@ import time
 # Setting serial ports for each sensors, skip AMA1
 ports=[
 	serial.Serial("/dev/ttyAMA0",9600,timeout=0.1),
-	serial.Serial("/dev/ttyAMA3",9600,timeout=0.1),
-	serial.Serial("/dev/ttyAMA4",9600,timeout=0.1),
-	serial.Serial("/dev/ttyAMA5",9600,timeout=0.1)
+	# serial.Serial("/dev/ttyAMA3",9600,timeout=0.1),
+	# serial.Serial("/dev/ttyAMA4",9600,timeout=0.1),
+	# serial.Serial("/dev/ttyAMA5",9600,timeout=0.1)
 ]
 # Flushing ports and waiting for sensors to stabilize
 for ser in ports:
@@ -34,13 +34,14 @@ def distance_read(ports):
 		distances.append(dist)
 	return distances
 
-while True:
-	distances = [] 
-	for i, ser in enumerate(ports): # Add each distance reading
-		dist = read_dist(ser)
-		distances.append(dist)
-	speed = cpu_speed()
-	distances.append(f"CPU Speed: {speed}")
-	print(" ".join(distances))
-	time.sleep(0.05)
+def __main__():
+	while True:
+		distances = [] 
+		for i, ser in enumerate(ports): # Add each distance reading
+			dist = read_dist(ser)
+			distances.append(dist)
+		speed = cpu_speed()
+		# distances.append(f"CPU Speed: {speed}")
+		# print(" ".join(distances))
+		time.sleep(0.05)
 

@@ -1,11 +1,11 @@
-#import RPi.GPIO as GPIO
+import RPi.GPIO as GPIO
 from time import sleep
 
-# import motor_driver
-#GPIO.setmode(GPIO.BOARD)
+import motor_driver
+GPIO.setmode(GPIO.BOARD)
 
-# import serial
-# import ultrasonic
+import serial
+import ultrasonic
 import random
 
 
@@ -31,26 +31,26 @@ def __init__(self):
 	# S3: TX to GPIO8, RX to GPIO9
 	# S4: TX to GPIO12, RX to GPIO13
     # Setting serial ports for each sensors, skip AMA1
-    # self.ports=[
-    #     serial.Serial("/dev/ttyAMA0",9600,timeout=0.1),
-    #     serial.Serial("/dev/ttyAMA3",9600,timeout=0.1),
-    #     serial.Serial("/dev/ttyAMA4",9600,timeout=0.1),
-    #     serial.Serial("/dev/ttyAMA5",9600,timeout=0.1)
-    # ]
-    # # Flushing ports and waiting for sensors to stabilize
-    # print("Resetting serial ports")
-    # for ser in self.ports:
-    #     ser.reset_input_buffer()
+    self.ports=[
+        serial.Serial("/dev/ttyAMA0",9600,timeout=0.1),
+        # serial.Serial("/dev/ttyAMA3",9600,timeout=0.1),
+        # serial.Serial("/dev/ttyAMA4",9600,timeout=0.1),
+        # serial.Serial("/dev/ttyAMA5",9600,timeout=0.1)
+    ]
+    # Flushing ports and waiting for sensors to stabilize
+    print("Resetting serial ports")
+    for ser in self.ports:
+        ser.reset_input_buffer()
     sleep(1.0)
 
-    self.distances = [0,0,0,0]
+    self.distances = []
 
 
 def controlCommand(self,command):
     print(f"Controller Read: {command}")
     
-    # self.distances = ultrasonic.distance_read(self.ports)
-    self.distances = [random.randint(0,9),random.randint(0,9),random.randint(0,9),random.randint(0,9)]
+    self.distances = ultrasonic.distance_read(self.ports)
+    # self.distances = [random.randint(0,9),random.randint(0,9),random.randint(0,9),random.randint(0,9)]
     
     match command:
 

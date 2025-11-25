@@ -1,7 +1,7 @@
 import flask
 import threading
 import scooterController as cont
-# import cv2
+import cv2
 # from picamera2 import Picamera2, Preview
 
 app = flask.Flask(__name__,
@@ -10,10 +10,29 @@ app = flask.Flask(__name__,
 
 serial_lock = threading.Lock()
 cont.__init__(cont)
+camera = cv2.VideoCapture(0)
 
 @app.get("/")
 def naked_domain_redirect():
     return flask.redirect("index.html")
+
+def generate_frames(camera):
+    while True:
+        success, frame = camera.read()
+        if not success:
+            break
+        else:
+            # Encode frame as JPEG
+            ret, buffer = cv2.imencode('.jpg', frame)
+            frame = buffer.tobytes()
+
+            # Yield frame in MJPEG format
+            yield (b'--frame\r\n'
+                b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
+@app.route('/video_feed')           
+def video_feed():
+    return flask.Response(generate_frames(camera),
+                    mimetype='multipart/x-mixed-replace; boundary=frame')
 
 @app.route("/api/<command>")
 def command_api(command):
