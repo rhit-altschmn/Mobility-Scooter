@@ -1,0 +1,113 @@
+https://socket.io/docs/v4/tutorial/ending-notes
+
+
+Key Points
+Websockets: Use socket.io for real-time communication between the frontend and backend.
+
+Video Streaming: Capture video frames on the backend and send them to the frontend as base64 encoded images.
+
+Button Push Handling: Emit events when buttons are pushed on the frontend and handle them on the backend.
+
+Communities for Further Help
+r/flask
+
+r/webdev
+
+r/javascript
+
+Generated from these posts:
+1
+ r/flask
+How my friend and I built a multiplayer game using Flask and WebSockets
+90
+·
+10
+r/flask - How my friend and I built a multiplayer game using Flask and WebSockets
+2
+ r/flashlight
+Streamlight MacroStream USB Shuts off Randomly
+8
+·
+16
+
++10
+View all
+Is this answer helpful?
+
+Helpful
+
+Unhelpful
+is there a different way
+r/FlutterDev icon
+r/computervision icon
+Sources: r/FlutterDev, r/computervision, r/compression +8 more
+If you're looking for different ways to manage and stream videos, here are some alternatives and tips based on Redditor experiences:
+
+Video Streaming Alternatives
+Mux: This service can help with video encoding and streaming, but some users have noted that it might not eliminate buffering entirely without significant investment in infrastructure. "I suggested him to use Mux , played with mux streaming settings but still some of videos were buffering while some played smooth"
+
+Adaptive Streaming: Using formats like Dash or HLS can help by providing multiple resolutions and pre-buffering lower-resolution videos. "If you can use any type of adaptive streaming, that will help. Dash or HLS. Multiple resolutions embedded into one manifest file."
+
+CDN Integration: Content Delivery Networks (CDNs) like Akamai can abstract and address many streaming challenges. "Do you use a cdn? If the client will pay for cdn, see if you can integrate Akamai into your app."
+
+Protocols for Reliable Video Streaming
+RTSP: This protocol is often recommended for real-time applications due to its low latency. "Hi, i think you can try to use rtsp it’s very famous in the world of real time application."
+
+RTMP: While not as fast as RTSP, RTMP offers better reliability because it's based on TCP. "If you only care about showing the inference results with no video, i think RTMP would be the go to."
+
+WebRTC: This can be a good option for real-time video streaming directly in a browser. "Have you considered WebRTC?"
+
+Video Compression and Quality
+Hardware Encoding: Some streaming platforms use hardware encoding to compress videos faster, though it may result in lower quality. "They have multiple copies of the same program in different quality versions. I have no idea what they use, but I feel pretty confident that they use hardware encoding."
+
+CPU Compression: For higher quality, many premium streaming services use CPU compression, which is more efficient but takes longer. "None of the premium streaming companies use hardware encoding for video on demand or download content. CPU compression is much more efficient, so it's cheaper to spend more time doing it right and saving on bandwidth costs."
+
+Tools for Stream Highlights and Clipping
+Stream Markers: Use tools like Nightbot's !marker feature or OBS replay buffer to mark key moments in your stream. "dont know about a website but nightbot has a !marker feature for your vods, or you can use the OBS replay buffer"
+
+Third-Party Clipping Tools: Websites like Opus Clip and Streamladder can help you crop and edit clips from your streams. "Opus Clip"
+
+General Tips
+Optimize Stream Settings: Ensure you are using the best settings for your internet speed and hardware to minimize input lag. "Post a log so we can know your obs configurations. Keep in mind that nothing you do will equal the performance of running only the game or using two pcs."
+
+Use a Two-PC Setup: If you have a powerful second PC, consider using it to offload the streaming workload. "Should I invest in a capture card and maybe run a two PC setup?"
+
+Subreddits for Further Questions
+r/FlutterDev
+
+r/computervision
+
+r/compression
+
+r/streaming
+
+r/obs
+
+These communities can provide more specific advice and help you troubleshoot any issues you encounter.
+
+Generated from these posts:
+1
+ r/FlutterDev
+Video Streaming without buffering in flutter on a low budget
+11
+·
+11
+2
+ r/computervision
+Best protocol for reliable video streaming?
+7
+·
+5
+
++10
+View all
+Is this answer helpful?
+
+Helpful
+
+Unhelpful
+Related
+alternative video streaming methods
+best practices for video encoding
+how to reduce video buffering
+Reddit Answers are AI-generated from redditors’ posts and comments and may not be accurate.

@@ -1,0 +1,55 @@
+Frontend (HTML, JavaScript)
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Video Stream with Button Push</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.0/socket.io.js"></script>
+    <style>
+        #video-container {
+            width: 640px;
+            height: 480px;
+            margin: auto;
+            background-color: black;
+        }
+        #video-frame {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+        .button-push {
+            margin: 10px;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div id="video-container">
+        <img id="video-frame" src="" alt="Video Stream">
+    </div>
+    <div>
+        <button class="button-push" onclick="push_button('button1')">Button 1</button>
+        <button class="button-push" onclick="push_button('button2')">Button 2</button>
+    </div>
+    <script>
+        var socket = io();
+
+        socket.on('connect', function() {
+            console.log('Connected to WebSocket');
+        });
+
+        socket.on('frame', function(data) {
+            var imageSrc = 'data:image/jpeg;base64,' + data.image;
+            document.getElementById('video-frame').src = imageSrc;
+        });
+
+        socket.on('button_pressed', function(data) {
+            console.log('Button Pressed:', data.id);
+        });
+
+        function push_button(buttonId) {
+            socket.emit('button_push', { id: buttonId });
+        }
+    </script>
+</body>
+</html>
