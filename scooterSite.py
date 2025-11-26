@@ -1,6 +1,6 @@
 import flask
 import threading
-import scooterController as cont
+import scooterController 
 import cv2
 # from picamera2 import Picamera2, Preview
 
@@ -9,8 +9,9 @@ app = flask.Flask(__name__,
                   static_folder="public")
 
 serial_lock = threading.Lock()
-cont.__init__(cont)
+# cont.__init__(cont)
 camera = cv2.VideoCapture(0)
+cont = scooterController.scooterController()
 
 @app.get("/")
 def naked_domain_redirect():
@@ -46,7 +47,8 @@ def command_api(command):
         # resp = pl.send_command(command)
         # pl.disconnect()
 
-        resp_cmd,heading,dists = cont.controlCommand(cont,command)
+        
+        resp_cmd,heading,dists = cont.controlCommand(command)
         print(f"Site Incoming command: {resp_cmd} Heading:{heading} Distances:{dists}")
         response = resp_cmd + "?" + str(heading) +"?" + str(dists)
         print(response)
