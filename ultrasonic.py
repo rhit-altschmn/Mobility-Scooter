@@ -34,14 +34,14 @@ def distance_read(ports):
 		distances.append(dist)
 	return distances
 
-def __main__():
-	while True:
-		distances = [] 
-		for i, ser in enumerate(ports): # Add each distance reading
-			dist = read_dist(ser)
-			distances.append(dist)
-		speed = cpu_speed()
-		# distances.append(f"CPU Speed: {speed}")
-		# print(" ".join(distances))
-		time.sleep(0.05)
+# def __main__():
+while True:
+	distances = [] 
+	for i, ser in enumerate(ports): # Add each distance reading
+		dist = read_dist(ser)
+		distances.append(dist)
+	speed = cpu_speed()
+	distances.append(f"CPU Speed: {speed}")
+	print(f"{distances}")
+	time.sleep(0.05)
 
