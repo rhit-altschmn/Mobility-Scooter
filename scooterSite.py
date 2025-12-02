@@ -10,14 +10,15 @@ app = flask.Flask(__name__,
 
 serial_lock = threading.Lock()
 # cont.__init__(cont)
-camera = cv2.VideoCapture(0)
+cam1 = cv2.VideoCapture(0)
+cam2 = cv2.VideoCapture(3)
 cont = scooterController.scooterController()
 
-@app.get("/")
-def naked_domain_redirect():
-    return flask.redirect("index.html")
+@app.route('/')
+def index():
+    return flask.render_template('index.html')
 
-def generate_frames(camera):
+def generate_frames(camera): # turn debug mode off or camera no work!
     while True:
         success, frame = camera.read()
         if not success:
@@ -30,9 +31,16 @@ def generate_frames(camera):
             # Yield frame in MJPEG format
             yield (b'--frame\r\n'
                 b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
+        
 @app.route('/video_feed')           
 def video_feed():
-    return flask.Response(generate_frames(camera),
+    return flask.Response(generate_frames(cam1),
+                    mimetype='multipart/x-mixed-replace; boundary=frame')
+
+@app.route('/video_feed/cam2')
+def video_feed2():
+    if flask.request.method == 'POST':
+        return flask.Response(generate_frames(camera2),
                     mimetype='multipart/x-mixed-replace; boundary=frame')
 
 @app.route("/api/<command>")

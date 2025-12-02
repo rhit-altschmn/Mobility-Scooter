@@ -4,7 +4,7 @@ def turn_to_angle(angle): #, pwm
     print(f"Input Angle: {angle}")
     
     gear_ratio = 2
-    Hz = 50
+    Hz = 250
     cycle_length = ((1/Hz) * 1000) #in ms
 
     #Motor parameters
@@ -12,7 +12,7 @@ def turn_to_angle(angle): #, pwm
     min_width = 500 #microseconds
     operating_angle = 270
 
-    turn_angle = (angle * gear_ratio) + operating_angle/2 #returns a value beetween 0 and 270
+    turn_angle = (angle / gear_ratio) + operating_angle/2 #returns a value beetween 0 and 270
 
     width = ((operating_range/operating_angle * turn_angle) + min_width) / 1000 #calculates the pulse width in ms assuming linear relationship
 
