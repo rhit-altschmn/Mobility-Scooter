@@ -22,6 +22,7 @@ sleep(1)
 GPIO.output(38, 0)
 GPIO.output(35, 0)
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 sleep(10)
 
 GPIO.output(38, 1)
@@ -44,6 +45,19 @@ user_in = input("Currently at 20% - Press Enter to continue...")
 <<<<<<< Updated upstream
 #GPIO.cleanup()
 =======
+=======
+sleep(1)
+
+user_in = input("Currently at 10% - Press Enter to continue...")
+
+x=20
+pwm.ChangeDutyCycle(50+x) #sets pwm to 7.5% of duty cycle, or 1.5ms
+pwm2.ChangeDutyCycle(50-x) #sets pwm to 7.5% of duty cycle, or 1.5ms
+sleep(5)
+
+user_in = input("Currently at 20% - Press Enter to continue...")
+
+>>>>>>> Stashed changes
 x=30
 pwm.ChangeDutyCycle(50+x) #sets pwm to 7.5% of duty cycle, or 1.5ms
 pwm2.ChangeDutyCycle(50-x) #sets pwm to 7.5% of duty cycle, or 1.5ms
@@ -74,5 +88,9 @@ def terminate():
     GPIO.output(35, 1)
     #pwm.stop()
     #pwm2.stop()
+<<<<<<< Updated upstream
+    #GPIO.cleanup()
+>>>>>>> Stashed changes
+=======
     #GPIO.cleanup()
 >>>>>>> Stashed changes
