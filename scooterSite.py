@@ -37,10 +37,10 @@ def video_feed():
     return flask.Response(generate_frames(cam1),
                     mimetype='multipart/x-mixed-replace; boundary=frame')
 
-@app.route('/video_feed/cam2')
-def video_feed2():
+#@app.route('/video_feed/cam2/')
+#def video_feed2():
     if flask.request.method == 'POST':
-        return flask.Response(generate_frames(camera2),
+        return flask.Response(generate_frames(cam2),
                     mimetype='multipart/x-mixed-replace; boundary=frame')
 
 @app.route("/api/<command>")
