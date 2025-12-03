@@ -1,5 +1,8 @@
 import RPi.GPIO as GPIO
 from time import sleep
+from atexit import register
+@register
+
 GPIO.setmode(GPIO.BOARD)
 
 GPIO.setup(40,GPIO.OUT) # DAC1 pwm
@@ -18,19 +21,58 @@ sleep(1)
 
 GPIO.output(38, 0)
 GPIO.output(35, 0)
+<<<<<<< Updated upstream
 sleep(10)
 
 GPIO.output(38, 1)
 GPIO.output(35, 1)
 
 #pwm.stop()
+=======
+sleep(1)
 
-#set motor to left
-#pwm.ChangeDutyCycle(2.5) #sets pwm to 2.5% of duty cycle, or .5ms
-#sleep(5)
+user_in = input("Currently at 10% - Press Enter to continue...")
+>>>>>>> Stashed changes
 
-#set motor to right
-#pwm.ChangeDutyCycle(12.5) #sets pwm to 12.5% of duty cycle, or 2.5ms
-#sleep(5)
+x=20
+pwm.ChangeDutyCycle(50+x) #sets pwm to 7.5% of duty cycle, or 1.5ms
+pwm2.ChangeDutyCycle(50-x) #sets pwm to 7.5% of duty cycle, or 1.5ms
+sleep(5)
 
+user_in = input("Currently at 20% - Press Enter to continue...")
+
+<<<<<<< Updated upstream
 #GPIO.cleanup()
+=======
+x=30
+pwm.ChangeDutyCycle(50+x) #sets pwm to 7.5% of duty cycle, or 1.5ms
+pwm2.ChangeDutyCycle(50-x) #sets pwm to 7.5% of duty cycle, or 1.5ms
+sleep(5)
+
+user_in = input("Currently at 30% - Press Enter to continue...")
+
+x=40
+pwm.ChangeDutyCycle(50+x) #sets pwm to 7.5% of duty cycle, or 1.5ms
+pwm2.ChangeDutyCycle(50-x) #sets pwm to 7.5% of duty cycle, or 1.5ms
+sleep(5)
+
+
+pwm.ChangeDutyCycle(50)
+pwm2.ChangeDutyCycle(50) # theorizing that drive controller does not like instantaneous return to center
+sleep(1)
+GPIO.output(38, 1)
+GPIO.output(35, 1)
+
+#pwm.stop()
+#GPIO.cleanup()
+
+def terminate():
+    pwm.ChangeDutyCycle(50)
+    pwm2.ChangeDutyCycle(50) # theorizing that drive controller does not like instantaneous return to center
+    sleep(1)
+    GPIO.output(38, 1)
+    GPIO.output(35, 1)
+    #pwm.stop()
+    #pwm2.stop()
+    #GPIO.cleanup()
+>>>>>>> Stashed changes
