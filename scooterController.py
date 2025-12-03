@@ -13,10 +13,15 @@ class scooterController:
 
     def __init__(self):
         #pwm.stop()
-        
+        GPIO.setup(40,GPIO.OUT) # DAC1 pwm
+        GPIO.setup(38,GPIO.OUT) # relay 1 hi/lo
+        GPIO.setup(37,GPIO.OUT) # DAC2 pwm
+        GPIO.setup(35,GPIO.OUT) # relay 2 hi/lo
         GPIO.setup(11,GPIO.OUT) #change this pin as needed
         
         self.pwm = GPIO.PWM(11,250) #set duty cycle to 50Hz or 20 ms
+        self.pwm1 = GPIO.PWM(40,1000) #set duty cycle to 50Hz or 20 ms
+        self.pwm2 = GPIO.PWM(37,1000) #set duty cycle to 50Hz or 20 ms
         #operating frequency is 50-330Hz
 
         #motor operates from 500-2500 microseconds or 0.5-2.5ms
@@ -91,15 +96,43 @@ class scooterController:
                 self.pwm.ChangeDutyCycle(cycle)
                 print(f"Left: {self.heading}  {cycle}")
             case "FORWARD":
+                x=1
                 # call the actual gas pedal thing here
                 print(f"Calling Drive Forward. Heading: {self.heading}")
+                self.pwm1.start(50+20*x) #sets pwm to 7.5% of duty cycle, or 1.5ms
+                self.pwm2.start(50-20*x) #sets pwm to 7.5% of duty cycle, or 1.5ms
+                sleep(.25)
+
+                GPIO.output(38, 0)
+                GPIO.output(35, 0)
                 sleep(1)
+
+                self.pwm1.ChangeDutyCycle(50)
+                self.pwm2.ChangeDutyCycle(50)
+                GPIO.output(38, 1)
+                GPIO.output(35, 1)
+                sleep(.5)
+                
                 # pwm.stop()
                 # GPIO.cleanup()
             case "REVERSE":
                 # call the actual gas pedal thing here
-                print(f"Calling Drive Backward. Heading: {self.heading}")
+                x=-1
+                # call the actual gas pedal thing here
+                print(f"Calling Drive Reverse. Heading: {self.heading}")
+                self.pwm1.start(50+20*x) #sets pwm to 7.5% of duty cycle, or 1.5ms
+                self.pwm2.start(50-20*x) #sets pwm to 7.5% of duty cycle, or 1.5ms
+                sleep(.25)
+
+                GPIO.output(38, 0)
+                GPIO.output(35, 0)
                 sleep(1)
+
+                self.pwm1.ChangeDutyCycle(50)
+                self.pwm2.ChangeDutyCycle(50)
+                GPIO.output(38, 1)
+                GPIO.output(35, 1)
+                sleep(.5)
                 # pwm.stop()
                 # GPIO.cleanup()
 
