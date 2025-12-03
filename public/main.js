@@ -35,9 +35,25 @@ async function sendCommand(command){
     const respArray = responseText.split("?")
     //TODO: Actually show the user on screen
     document.querySelector("#responseText").innerHTML = responseText;
-    
-    const infoText = "Heading: " + respArray[1] + "  Sensors: " + respArray[2]
-    document.querySelector("#scooterInfo").innerHTML = infoText;
+
+    let headingVal = respArray[1];
+
+    let senseStrVal = respArray[2];
+
+    if (headingVal.includes("-")){
+        const infoText = "Heading: " + headingVal.slice(1) + "deg Right     Sensors: " + senseStrVal
+        document.querySelector("#scooterInfo").innerHTML = infoText;
+    }
+    else if (headingVal == "0"){
+        const infoText = "Heading: Straight Ahead     Sensors: " + senseStrVal
+        document.querySelector("#scooterInfo").innerHTML = infoText;
+    }
+    else{
+        const infoText = "Heading: " + headingVal + "deg Left     Sensors: " + senseStrVal
+        document.querySelector("#scooterInfo").innerHTML = infoText;
+    }
+
+    //document.querySelector("#scooterInfo").innerHTML = infoText;
 }
 
 main();
