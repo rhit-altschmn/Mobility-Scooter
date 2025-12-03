@@ -13,62 +13,54 @@ GPIO.setup(35,GPIO.OUT) # relay 2 hi/lo
 pwm = GPIO.PWM(40,200) #set duty cycle to 50Hz or 20 ms
 pwm2 = GPIO.PWM(37,200) #set duty cycle to 50Hz or 20 ms
 #operating frequency is 20Hz-22khz
+
+state = 50
 x = 10 #command input
-
-pwm.start(50+x) #sets pwm to 7.5% of duty cycle, or 1.5ms
-pwm2.start(50-x) #sets pwm to 7.5% of duty cycle, or 1.5ms
+for x in range(state,state+x+1,1):
+    pwm.start(x) #sets pwm to 7.5% of duty cycle, or 1.5ms
+    pwm2.start(x) #sets pwm to 7.5% of duty cycle, or 1.5ms
 sleep(1)
-
 GPIO.output(38, 0)
 GPIO.output(35, 0)
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-sleep(10)
-
+sleep(1)
 GPIO.output(38, 1)
 GPIO.output(35, 1)
-
 #pwm.stop()
-=======
-sleep(1)
-
-user_in = input("Currently at 10% - Press Enter to continue...")
->>>>>>> Stashed changes
-
-x=20
-pwm.ChangeDutyCycle(50+x) #sets pwm to 7.5% of duty cycle, or 1.5ms
-pwm2.ChangeDutyCycle(50-x) #sets pwm to 7.5% of duty cycle, or 1.5ms
-sleep(5)
-
-user_in = input("Currently at 20% - Press Enter to continue...")
-
-<<<<<<< Updated upstream
-#GPIO.cleanup()
-=======
-=======
 sleep(1)
 
 user_in = input("Currently at 10% - Press Enter to continue...")
 
-x=20
-pwm.ChangeDutyCycle(50+x) #sets pwm to 7.5% of duty cycle, or 1.5ms
-pwm2.ChangeDutyCycle(50-x) #sets pwm to 7.5% of duty cycle, or 1.5ms
-sleep(5)
+inc=10
+for val in range(state, state+inc+1, 1):
+    pwm.ChangeDutyCycle(val) #sets pwm to 7.5% of duty cycle, or 1.5ms
+    pwm2.ChangeDutyCycle(val) #sets pwm to 7.5% of duty cycle, or 1.5ms
+sleep(1)
+state = val
+user_in = input(f"Currently at {state-50}% - Press Enter to continue...")
 
-user_in = input("Currently at 20% - Press Enter to continue...")
 
->>>>>>> Stashed changes
-x=30
-pwm.ChangeDutyCycle(50+x) #sets pwm to 7.5% of duty cycle, or 1.5ms
-pwm2.ChangeDutyCycle(50-x) #sets pwm to 7.5% of duty cycle, or 1.5ms
-sleep(5)
+inc = 10
+for val in range(state, state+inc+1, 1):
+    pwm.ChangeDutyCycle(val) #sets pwm to 7.5% of duty cycle, or 1.5ms
+    pwm2.ChangeDutyCycle(val) #sets pwm to 7.5% of duty cycle, or 1.5ms
+sleep(1)
+user_in = input(f"Currently at {state-50}% - Press Enter to continue...")
 
-user_in = input("Currently at 30% - Press Enter to continue...")
+inc = 10
+for val in range(state, state+inc+1, 1):
+    pwm.ChangeDutyCycle(val) #sets pwm to 7.5% of duty cycle, or 1.5ms
+    pwm2.ChangeDutyCycle(val) #sets pwm to 7.5% of duty cycle, or 1.5ms
+sleep(1)
+user_in = input(f"Currently at {state-50}% - Press Enter to continue...")
 
-x=40
-pwm.ChangeDutyCycle(50+x) #sets pwm to 7.5% of duty cycle, or 1.5ms
-pwm2.ChangeDutyCycle(50-x) #sets pwm to 7.5% of duty cycle, or 1.5ms
-sleep(5)
+for val in range(state, 50, -1):
+    pwm.ChangeDutyCycle(val) #sets pwm to 7.5% of duty cycle, or 1.5ms
+    pwm2.ChangeDutyCycle(val) #sets pwm to 7.5% of duty cycle, or 1.5ms
+sleep(1)
+user_in = input(f"Currently at {state-50}% - Press Enter to continue... (and abort)")
+
+
+
 
 
 pwm.ChangeDutyCycle(50)
@@ -88,9 +80,3 @@ def terminate():
     GPIO.output(35, 1)
     #pwm.stop()
     #pwm2.stop()
-<<<<<<< Updated upstream
-    #GPIO.cleanup()
->>>>>>> Stashed changes
-=======
-    #GPIO.cleanup()
->>>>>>> Stashed changes
