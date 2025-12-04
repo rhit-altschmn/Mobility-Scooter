@@ -96,11 +96,10 @@ class scooterController:
                 self.pwm.ChangeDutyCycle(cycle)
                 print(f"Left: {self.heading}  {cycle}")
             case "FORWARD":
-                x=1
                 # call the actual gas pedal thing here
                 print(f"Calling Drive Forward. Heading: {self.heading}")
-                self.pwm1.start(50+20*x) #sets pwm to 7.5% of duty cycle, or 1.5ms
-                self.pwm2.start(50-20*x) #sets pwm to 7.5% of duty cycle, or 1.5ms
+                self.pwm1.start(50+20) #sets pwm to 7.5% of duty cycle, or 1.5ms
+                self.pwm2.start(50-20) #sets pwm to 7.5% of duty cycle, or 1.5ms
                 sleep(.25)
 
                 GPIO.output(38, 0)
@@ -116,17 +115,16 @@ class scooterController:
                 # pwm.stop()
                 # GPIO.cleanup()
             case "REVERSE":
-                # call the actual gas pedal thing here
-                x=-1
+               
                 # call the actual gas pedal thing here
                 print(f"Calling Drive Reverse. Heading: {self.heading}")
-                self.pwm1.start(50+20*x) #sets pwm to 7.5% of duty cycle, or 1.5ms
-                self.pwm2.start(50-20*x) #sets pwm to 7.5% of duty cycle, or 1.5ms
+                self.pwm1.start(50-10) #sets pwm to 7.5% of duty cycle, or 1.5ms
+                self.pwm2.start(50+10) #sets pwm to 7.5% of duty cycle, or 1.5ms
                 sleep(.25)
 
                 GPIO.output(38, 0)
                 GPIO.output(35, 0)
-                sleep(1)
+                sleep(2)
 
                 self.pwm1.ChangeDutyCycle(50)
                 self.pwm2.ChangeDutyCycle(50)
