@@ -83,6 +83,18 @@ class scooterController:
                 print(f"Right: {self.heading}  {cycle}")
                 
             case "CENTER":
+                self.heading = self.heading * 0.75
+                cycle = motor_driver.turn_to_angle(self.heading)
+                self.pwm.ChangeDutyCycle(cycle)
+                sleep(0.2)
+                self.heading = self.heading * 0.5
+                cycle = motor_driver.turn_to_angle(self.heading)
+                self.pwm.ChangeDutyCycle(cycle)
+                sleep(0.2)
+                self.heading = self.heading * 0.5
+                cycle = motor_driver.turn_to_angle(self.heading)
+                self.pwm.ChangeDutyCycle(cycle)
+                sleep(0.2)
                 self.heading = 0
                 cycle = motor_driver.turn_to_angle(self.heading)
                 self.pwm.ChangeDutyCycle(cycle)
@@ -115,7 +127,8 @@ class scooterController:
                 # pwm.stop()
                 # GPIO.cleanup()
             case "REVERSE":
-               
+                # call the actual gas pedal thing here
+                
                 # call the actual gas pedal thing here
                 print(f"Calling Drive Reverse. Heading: {self.heading}")
                 self.pwm1.start(50-10) #sets pwm to 7.5% of duty cycle, or 1.5ms
