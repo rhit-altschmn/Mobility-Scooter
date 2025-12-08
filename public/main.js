@@ -1,13 +1,16 @@
 function main(){    
 
     document.querySelector("#FC").onclick = () => {
-        sendCommand("FRONT CAM");
+        setCamera("pi");     // Front = Pi camera
     };
+
     document.querySelector("#BC").onclick = () => {
-        sendCommand("BACK CAM");
+        setCamera("usb2");   // Back = USB camera 2
     };
+
     document.querySelector("#SC").onclick = () => {
-        sendCommand("SIDE CAM");
+        setCamera("usb0"); 
+    
     };
     
     document.querySelector("#F").onclick = () => {
@@ -27,7 +30,25 @@ function main(){
     };
    
 }
+async function setCamera(camName){
+    try {
+        let response = await fetch(`/set_camera/${camName}`, {
+            method: "POST"
+        });
 
+        if (!response.ok) {
+            throw new Error("Failed to switch camera");
+        }
+
+        document.querySelector("#responseText").innerHTML =
+            "Active Camera: " + camName;
+
+    } catch (err) {
+        console.error(err);
+        document.querySelector("#responseText").innerHTML =
+            "Camera switch failed";
+    }
+}
 async function sendCommand(command){
     let response = await fetch(`/api/${command}`);
     let responseText = await response.text();
