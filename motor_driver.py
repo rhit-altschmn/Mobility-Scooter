@@ -1,11 +1,11 @@
-def turn_to_angle(angle): #, pwm
+def turn_to_angle(angle,hz): #, pwm
     """This assumes that the motor is in pin 11 and 50 Hz. Takes values between -67.5 and 67.5 for angles"""
     #Mechanical parameters
     print(f"Input Angle: {angle}")
     
     gear_ratio = 2
-    Hz = 250
-    cycle_length = ((1/Hz) * 1000) #in ms
+    #Hz = 250
+    cycle_length = ((1/hz) * 1000) #in ms
 
     #Motor parameters
     operating_range = 2000 #microseconds

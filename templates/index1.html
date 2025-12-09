@@ -19,22 +19,18 @@
     text-align: center;
     align-content: center;
     }
-    
-    button {
-            font-size: 14px;
-    }
 </style>
 
 </head>
 <body>
-    <h1>Scooter Drive Template</h1>
+    <h1>Scooter Drive Controller</h1>
     <p id="responseText"> The response will go here </p>
     <hr>
     <h2>Live Stream</h2>
     <img src="{{ url_for('video_feed') }}" alt = "Camera feed here"  width="320" height="240">
     <hr>
-    <button style="height:50px; width:100px" font = large id = "FC"> Front Cam </button>
-    <button style="height:50px; width:100px" font = large id = "BC"> Back Cam </button>
+    <button style="height:50px; width:100px" font = large id = "FC" onclick="window.location.href='/video_2';" > Front Cam </button>
+    <button style="height:50px; width:100px" font = large id = "BC" onclick="window.location.href='/video_feed';"> Back Cam </button>
     <button style="height:50px; width:100px" font = large id = "SC"> Side Cam </button>
     <br>
     <hr>
@@ -48,12 +44,12 @@
     <div><button style="height:50px; width:100px" font = large id = "C"> CENTER </button></div>
     <div><button style="height:50px; width:100px" font = large id = "R"> RIGHT </button></div>
     <div></div>
-    <div><button style="height:50px; width:100px" font = large id = "B"> BACKWARD </button></div>
+    <div><button style="height:50px; width:100px" font = large id = "B"> REVERSE </button></div>
     <div></div>
     <hr>
 
     
 </body>
-<!-- Load the scrip at the end of the body {{url_for('static', filename = 'main.js') }}-->
-<script src="main.js"></script>
+<!-- Load the scrip at the end of the body -->
+<script src="main.js"></script> 
 </html>

@@ -1,16 +1,13 @@
 function main(){    
 
     document.querySelector("#FC").onclick = () => {
-        setCamera("pi");     // Front = Pi camera
+        sendCommand("FRONT CAM");
     };
-
     document.querySelector("#BC").onclick = () => {
-        setCamera("usb0");   // Back = USB camera 0
+        sendCommand("BACK CAM");
     };
-
     document.querySelector("#SC").onclick = () => {
-        setCamera("usb2"); // Side = USB cam 2
-    
+        sendCommand("SIDE CAM");
     };
     
     document.querySelector("#F").onclick = () => {
@@ -30,25 +27,7 @@ function main(){
     };
    
 }
-async function setCamera(camName){
-    try {
-        let response = await fetch(`/set_camera/${camName}`, {
-            method: "POST"
-        });
 
-        if (!response.ok) {
-            throw new Error("Failed to switch camera");
-        }
-
-        document.querySelector("#responseText").innerHTML =
-            "Active Camera: " + camName;
-
-    } catch (err) {
-        console.error(err);
-        document.querySelector("#responseText").innerHTML =
-            "Camera switch failed";
-    }
-}
 async function sendCommand(command){
     let response = await fetch(`/api/${command}`);
     let responseText = await response.text();
@@ -62,15 +41,15 @@ async function sendCommand(command){
     let senseStrVal = respArray[2];
 
     if (headingVal.includes("-")){
-        const infoText = "Heading: " + headingVal.slice(1) + "deg Right     Sensors: " + senseStrVal
+        const infoText = "--Heading: " + headingVal.slice(1) + "deg Right     Sensors: " + senseStrVal
         document.querySelector("#scooterInfo").innerHTML = infoText;
     }
     else if (headingVal == "0"){
-        const infoText = "Heading: Straight Ahead     Sensors: " + senseStrVal
+        const infoText = "--Heading: Straight Ahead     Sensors: " + senseStrVal
         document.querySelector("#scooterInfo").innerHTML = infoText;
     }
     else{
-        const infoText = "Heading: " + headingVal + "deg Left     Sensors: " + senseStrVal
+        const infoText = "--Heading: " + headingVal + "deg Left    blah           Sensors: " + senseStrVal
         document.querySelector("#scooterInfo").innerHTML = infoText;
     }
 

@@ -19,7 +19,10 @@ class scooterController:
         GPIO.setup(35,GPIO.OUT) # relay 2 hi/lo
         GPIO.setup(11,GPIO.OUT) #change this pin as needed
         
-        self.pwm = GPIO.PWM(11,250) #set duty cycle to 50Hz or 20 ms
+        self.Hz = 250
+        
+               
+        self.pwm = GPIO.PWM(11,self.Hz) #MOTOR HZ CAN BE 50-330
         self.pwm1 = GPIO.PWM(40,1000) #set duty cycle to 50Hz or 20 ms
         self.pwm2 = GPIO.PWM(37,1000) #set duty cycle to 50Hz or 20 ms
         #operating frequency is 50-330Hz
@@ -28,8 +31,9 @@ class scooterController:
         #motor nuetral is at 1500 microseconds or 1.5ms
 
         #set motor to neutral
-        self.pwm.start(7.5) #sets pwm to 7.5% of duty cycle, or 1.5ms
         self.heading = 0
+        cycle = motor_driver.turn_to_angle(self.heading,self.Hz)
+        self.pwm.start(cycle) #sets to center
         
         sleep(1)
         print("resetting header")
@@ -40,16 +44,16 @@ class scooterController:
         # S3: TX to GPIO8, RX to GPIO9
         # S4: TX to GPIO12, RX to GPIO13
         # Setting serial ports for each sensors, skip AMA1 and 2
-        #self.ports=[
-            # serial.Serial("/dev/ttyAMA0",9600,timeout=0.1),
-            # serial.Serial("/dev/ttyAMA3",9600,timeout=0.1),
-            # serial.Serial("/dev/ttyAMA4",9600,timeout=0.1),
-            # serial.Serial("/dev/ttyAMA5",9600,timeout=0.1)
-        #]
+        self.ports=[
+                serial.Serial("/dev/ttyAMA0",9600,timeout=0.1),
+                #serial.Serial("/dev/ttyAMA3",9600,timeout=0.1),
+                serial.Serial("/dev/ttyAMA4",9600,timeout=0.1),
+                serial.Serial("/dev/ttyAMA5",9600,timeout=0.1)
+        ]
         # Flushing ports and waiting for sensors to stabilize
         print("Resetting serial ports")
-        #for ser in self.ports:
-            #ser.reset_input_buffer()
+        for ser in self.ports:
+            ser.reset_input_buffer()
         sleep(1.0)
 
         self.distances = []
@@ -57,54 +61,61 @@ class scooterController:
     def read_dist(self,ser):
         data=ser.read(4)
         distance = (data[1] * 256 + data[2])
+        #print(f"single dist read: {distance}")
         return distance
         
     def distance_read(self):
-        self.distances.clear()
+        self.distances = []        
         for ser in self.ports: # Add each distance reading
-            dist = self.read_dist(ser)
-            distances.append(dist)
-        return distances
+                ser.reset_input_buffer()
+                dist = self.read_dist(ser)
+                #if self.distances != None:
+                self.distances.append(dist)
+        with open("/sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq") as cpu:
+                Speed = int(cpu.read().strip()) / 1000 # Convert to mHz
+                self.distances.append(Speed)
+        #print(f"dist read: {self.distances}")
 
     def controlCommand(self,command):
         print(f"Controller Read: {command}")
         
-        #self.distances = self.distance_read()
-        self.distances = [random.randint(0,9),random.randint(0,9),random.randint(0,9),random.randint(0,9)]
+        self.distance_read()
+        print(f"Controller Distances: {self.distances}")
+        #self.distances.append(random.randint(0,9)) # For sensor 4, not attached yet
         
         match command:
 
             case "RIGHT":
                 self.heading = self.heading -10
-                if self.heading < -67.5:
-                    self.heading = -60
-                cycle = motor_driver.turn_to_angle(self.heading)
+                if self.heading < -70:
+                    self.heading = -70
+                cycle = motor_driver.turn_to_angle(self.heading,self.Hz)
                 self.pwm.ChangeDutyCycle(cycle)
                 print(f"Right: {self.heading}  {cycle}")
                 
             case "CENTER":
                 self.heading = self.heading * 0.75
-                cycle = motor_driver.turn_to_angle(self.heading)
+                cycle = motor_driver.turn_to_angle(self.heading,self.Hz)
                 self.pwm.ChangeDutyCycle(cycle)
                 sleep(0.2)
                 self.heading = self.heading * 0.5
-                cycle = motor_driver.turn_to_angle(self.heading)
+                cycle = motor_driver.turn_to_angle(self.heading,self.Hz)
                 self.pwm.ChangeDutyCycle(cycle)
                 sleep(0.2)
                 self.heading = self.heading * 0.5
-                cycle = motor_driver.turn_to_angle(self.heading)
+                cycle = motor_driver.turn_to_angle(self.heading,self.Hz)
                 self.pwm.ChangeDutyCycle(cycle)
                 sleep(0.2)
                 self.heading = 0
-                cycle = motor_driver.turn_to_angle(self.heading)
+                cycle = motor_driver.turn_to_angle(self.heading,self.Hz)
                 self.pwm.ChangeDutyCycle(cycle)
                 print(f"Center: {self.heading}  {cycle}")
                 
             case "LEFT":
                 self.heading = self.heading + 10
-                if self.heading > 67.5:
-                    self.heading = 60
-                cycle = motor_driver.turn_to_angle(self.heading)
+                if self.heading > 70:
+                    self.heading = 70
+                cycle = motor_driver.turn_to_angle(self.heading,self.Hz)
                 self.pwm.ChangeDutyCycle(cycle)
                 print(f"Left: {self.heading}  {cycle}")
             case "FORWARD":
@@ -116,16 +127,16 @@ class scooterController:
 
                 GPIO.output(38, 0)
                 GPIO.output(35, 0)
-                sleep(0.25)
+                sleep(1)
 
-                # self.pwm1.ChangeDutyCycle(50)
-                # self.pwm2.ChangeDutyCycle(50)
-                # GPIO.output(38, 1)
-                # GPIO.output(35, 1)
-                # sleep(.5)
+                self.pwm1.ChangeDutyCycle(50)
+                self.pwm2.ChangeDutyCycle(50)
+                sleep(0.1)
+                GPIO.output(38, 1)
+                GPIO.output(35, 1)
+                sleep(.1)
                 
-                # pwm.stop()
-                # GPIO.cleanup()
+                
             case "REVERSE":
                 # call the actual gas pedal thing here
                 print(f"Calling Drive Reverse. Heading: {self.heading}")
@@ -135,23 +146,24 @@ class scooterController:
 
                 GPIO.output(38, 0)
                 GPIO.output(35, 0)
-                sleep(0.25)
+                sleep(1.75)
 
-                # self.pwm1.ChangeDutyCycle(50)
-                # self.pwm2.ChangeDutyCycle(50)
-                # GPIO.output(38, 1)
-                # GPIO.output(35, 1)
-                # sleep(.5)
-                # pwm.stop()
-                # GPIO.cleanup()
+                self.pwm1.ChangeDutyCycle(50)
+                self.pwm2.ChangeDutyCycle(50)
+                #sleep(0.1)
+                GPIO.output(38, 1)
+                GPIO.output(35, 1)
+                sleep(0.25)
+                
             case "STOP":
                 # stop the drive pwms
                 print(f"Stopping!!!")
                 self.pwm1.ChangeDutyCycle(50)
                 self.pwm2.ChangeDutyCycle(50)
+                sleep(0.1)
                 GPIO.output(38, 1)
                 GPIO.output(35, 1)
-                sleep(.5)
+                sleep(0.1)
                 # pwm.stop()
                 # GPIO.cleanup()
 

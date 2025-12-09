@@ -1,20 +1,22 @@
 import flask
 import threading
 import scooterController 
-from time import sleep
 import cv2
+from time import sleep
 from picamera2 import Picamera2, Preview
 
 app = flask.Flask(__name__,
                   static_url_path="",
-                  static_folder="public")
+                  static_folder="static")
 
 serial_lock = threading.Lock()
+# cont.__init__(cont)
 # --- Setup Pi Camera ---
 pi_cam = Picamera2()
 camera_config = pi_cam.create_preview_configuration()
 pi_cam.configure(camera_config)
 pi_cam.start()
+
 sleep(1)  
 
 live_camera = "pi" #default ---can be changed
@@ -90,30 +92,17 @@ def set_camera(cam_name):
     else:
         return "Invalid camera", 400
    
+
+@app.route('/video_feed')           
+def video_feed():
+    return flask.Response(get_all_frames(),
+                    mimetype='multipart/x-mixed-replace; boundary=frame') 
+                   
 @app.route('/')
 def index():
     return flask.render_template('index.html')
 
-'''
-def generate_frames(camera): # turn debug mode off or camera no work!
-    while True:
-        success, frame = camera.read()
-        if not success:
-            break
-        else:
-            # Encode frame as JPEG
-            ret, buffer = cv2.imencode('.jpg', frame)
-            frame = buffer.tobytes()
 
-            # Yield frame in MJPEG format
-            yield (b'--frame\r\n'
-                b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
-        
-@app.route('/video_feed')           
-def video_feed():
-    return flask.Response(generate_frames(cam1),
-                    mimetype='multipart/x-mixed-replace; boundary=frame')
-'''
 
 @app.route("/api/<command>")
 def command_api(command):
@@ -127,50 +116,11 @@ def command_api(command):
         return response
     
   
-
-app.run(host="0.0.0.0", port=5000, debug=False)
-
-
-'''
-def __init__(self):
-    self.server = flask.Flask(__name__,
-                static_url_path="",
-                static_folder="public")
-    self.HTML_PAGE = """
-                    <html>
-                    <head>
-                        <title>Raspberry Pi Webcam Stream</title>
-                    </head>
-                    <body>
-                        <h1>Live Stream</h1>
-                        <img src="{{ url_for('video_feed') }}" width="640" height="480">
-                    </body>
-                    </html>
-                    """
-    self.camera = cv2.VideoCapture(0)
-    # Register routes after initializing Flask app
-    self.server.add_url_rule('/', 'index', self.index)
-    self.server.add_url_rule('/video_feed', 'video_feed', self.video_feed)
-
-def generate_frames(self):
-    while True:
-        success, frame = self.camera.read()
-        if not success:
-            break
-        else:
-            # Encode frame as JPEG
-            ret, buffer = cv2.imencode('.jpg', frame)
-            frame = buffer.tobytes()
-
-            # Yield frame in MJPEG format
-            yield (b'--frame\r\n'
-                b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
-def index(self):
-    return flask.render_template_string(self.HTML_PAGE)
-
-def video_feed(self):
-    return flask.Response(self.generate_frames(),
-                    mimetype='multipart/x-mixed-replace; boundary=frame')
-def run(self):
-    self.server.run(host='0.0.0.0', port=5000)
-'''
+if __name__ == '__main__':
+    try:
+        app.run(host='0.0.0.0', port=5000, debug=False, threaded=True)
+    finally:
+        usb_cam0.release()
+        usb_cam2.release()
+        pi_cam.stop()
+        cv2.destroyAllWindows()

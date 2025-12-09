@@ -14,7 +14,7 @@ function main(){
         sendCommand("FORWARD");
     };
     document.querySelector("#B").onclick = () => {
-        sendCommand("REVERSE");
+        sendCommand("BACKWARD");
     };
     document.querySelector("#L").onclick = () => {
         sendCommand("LEFT");
