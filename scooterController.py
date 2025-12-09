@@ -41,7 +41,7 @@ class scooterController:
         # S4: TX to GPIO12, RX to GPIO13
         # Setting serial ports for each sensors, skip AMA1 and 2
         #self.ports=[
-                #serial.Serial("/dev/ttyAMA0",9600,timeout=0.1),
+            # serial.Serial("/dev/ttyAMA0",9600,timeout=0.1),
             # serial.Serial("/dev/ttyAMA3",9600,timeout=0.1),
             # serial.Serial("/dev/ttyAMA4",9600,timeout=0.1),
             # serial.Serial("/dev/ttyAMA5",9600,timeout=0.1)
@@ -112,23 +112,21 @@ class scooterController:
                 print(f"Calling Drive Forward. Heading: {self.heading}")
                 self.pwm1.start(50+20) #sets pwm to 7.5% of duty cycle, or 1.5ms
                 self.pwm2.start(50-20) #sets pwm to 7.5% of duty cycle, or 1.5ms
-                sleep(.25)
+                sleep(0.25)
 
                 GPIO.output(38, 0)
                 GPIO.output(35, 0)
-                sleep(1)
+                sleep(0.25)
 
-                self.pwm1.ChangeDutyCycle(50)
-                self.pwm2.ChangeDutyCycle(50)
-                GPIO.output(38, 1)
-                GPIO.output(35, 1)
-                sleep(.5)
+                # self.pwm1.ChangeDutyCycle(50)
+                # self.pwm2.ChangeDutyCycle(50)
+                # GPIO.output(38, 1)
+                # GPIO.output(35, 1)
+                # sleep(.5)
                 
                 # pwm.stop()
                 # GPIO.cleanup()
             case "REVERSE":
-                # call the actual gas pedal thing here
-                
                 # call the actual gas pedal thing here
                 print(f"Calling Drive Reverse. Heading: {self.heading}")
                 self.pwm1.start(50-10) #sets pwm to 7.5% of duty cycle, or 1.5ms
@@ -137,8 +135,18 @@ class scooterController:
 
                 GPIO.output(38, 0)
                 GPIO.output(35, 0)
-                sleep(2)
+                sleep(0.25)
 
+                # self.pwm1.ChangeDutyCycle(50)
+                # self.pwm2.ChangeDutyCycle(50)
+                # GPIO.output(38, 1)
+                # GPIO.output(35, 1)
+                # sleep(.5)
+                # pwm.stop()
+                # GPIO.cleanup()
+            case "STOP":
+                # stop the drive pwms
+                print(f"Stopping!!!")
                 self.pwm1.ChangeDutyCycle(50)
                 self.pwm2.ChangeDutyCycle(50)
                 GPIO.output(38, 1)

@@ -76,6 +76,7 @@ def get_all_frames():
         #Yield Magic
         yield (b'--frame\r\n'
                b'Content-Type: image/jpeg\r\n\r\n' + jpeg.tobytes() + b'\r\n')
+        sleep(0.75)  # controls the frames/sec of camera feed
 
 
 
@@ -93,6 +94,7 @@ def set_camera(cam_name):
 def index():
     return flask.render_template('index.html')
 
+'''
 def generate_frames(camera): # turn debug mode off or camera no work!
     while True:
         success, frame = camera.read()
@@ -111,7 +113,7 @@ def generate_frames(camera): # turn debug mode off or camera no work!
 def video_feed():
     return flask.Response(generate_frames(cam1),
                     mimetype='multipart/x-mixed-replace; boundary=frame')
-
+'''
 
 @app.route("/api/<command>")
 def command_api(command):

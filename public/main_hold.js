@@ -12,13 +12,7 @@ function main(){
         setCamera("usb2"); // Side = USB cam 2
     
     };
-    
-    document.querySelector("#F").onclick = () => {
-        sendCommand("FORWARD");
-    };
-    document.querySelector("#B").onclick = () => {
-        sendCommand("REVERSE");
-    };
+
     document.querySelector("#L").onclick = () => {
         sendCommand("LEFT");
     };
@@ -28,7 +22,37 @@ function main(){
     document.querySelector("#R").onclick = () => {
         sendCommand("RIGHT");
     };
-   
+
+    const forwardBtn = document.querySelector("#F");
+    const reverseBtn = document.querySelector("#B");
+    let intervalId;
+
+    // .onclick = () => {
+    //     sendCommand("FORWARD");
+    // };
+    // document.querySelector("#B").onclick = () => {
+    //     sendCommand("REVERSE");
+    // };
+
+    forwardBtn.addEventListener('mousedown', function(){
+        sendCommand("FORWARD");
+        intervalId = setInterval(sendCommand("FORWARD"),500); //call forward every 500ms
+    });
+    forwardBtn.addEventListener('mouseup', function() {
+        clearInterval(intervalId); //stops the call loop when button released
+        sendCommand("STOP");
+    });
+
+    reverseBtn.addEventListener('mousedown', function(){
+        sendCommand("REVERSE");
+        intervalId = setInterval(sendCommand("REVERSE"),500); //call reverse every 500ms
+    });
+    reverseBtn.addEventListener('mouseup', function() {
+        clearInterval(intervalId); //stops the call loop when button released
+        sendCommand("STOP");
+    });
+
+
 }
 async function setCamera(camName){
     try {
@@ -61,20 +85,19 @@ async function sendCommand(command){
 
     let senseStrVal = respArray[2];
 
+    let infoText;
+
     if (headingVal.includes("-")){
-        const infoText = "Heading: " + headingVal.slice(1) + "deg Right     Sensors: " + senseStrVal
-        document.querySelector("#scooterInfo").innerHTML = infoText;
+        infoText = "Heading: " + headingVal.slice(1) + "deg Right     Sensors: " + senseStrVal   
     }
     else if (headingVal == "0"){
-        const infoText = "Heading: Straight Ahead     Sensors: " + senseStrVal
-        document.querySelector("#scooterInfo").innerHTML = infoText;
+        infoText = "Heading: Straight Ahead     Sensors: " + senseStrVal  
     }
     else{
-        const infoText = "Heading: " + headingVal + "deg Left     Sensors: " + senseStrVal
-        document.querySelector("#scooterInfo").innerHTML = infoText;
+        infoText = "Heading: " + headingVal + "deg Left     Sensors: " + senseStrVal    
     }
 
-    //document.querySelector("#scooterInfo").innerHTML = infoText;
+    document.querySelector("#scooterInfo").innerHTML = infoText;
 }
 
 main();
