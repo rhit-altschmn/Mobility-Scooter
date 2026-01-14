@@ -1,5 +1,6 @@
 # Mobility-Scooter
 This is a repo to handle code for automating a mobility scooter. A joint partnership between Intro to Robotics team and Dr. Bill Smart's lab.
+(https://www.markdownguide.org/basic-syntax/#links)
 
 ## Hardware
 * Raspberry Pi4 - the brain that runs code and hosts the flask server
