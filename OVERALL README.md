@@ -9,6 +9,14 @@ This is a repo to handle code for automating a mobility scooter. A joint partner
 * Cameras (2 USB and 1 picam) - for viewing so users can teleop the scooter. maybe used for computer vision in future
 * ultrasonics (4) - for object avoidance sensing
 
+### Raspberry Pi info
+Raspberry Pi login stuff:
+username: scooterteam
+password: scooter1
+
+local LAN ssid: scooterwifi
+password:scooter1
+
 ## Software
 * scooterSite.py - runs the flask site html and handles camera frame creation and streaming to site
 * templates/index.html - the html for the flask site
