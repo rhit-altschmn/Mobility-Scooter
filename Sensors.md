@@ -10,15 +10,15 @@ Note that the blue wire is TX and Green is RX for UART.
 
 Setup procedure on a new Pi is as follows:
 1. Enable UART in config by using `sudo nano /boot/config.txt` and adding the following to the bottom:
-   `dtoverlay=disable-bt
-   enable_uart=1
-   dtoverlay=uart3
-   dtoverlay=uart4
-   dtoverlay=uart5`
+   `dtoverlay=disable-bt  
+   enable_uart=1  
+   dtoverlay=uart3  
+   dtoverlay=uart4  
+   dtoverlay=uart5`  
 2. Disable bluetooth with the following:
-   `sudo systemctl disable hciuart.service
-   sudo systemctl mask hciuart.service
-   sudo reboot`
+   `sudo systemctl disable hciuart.service  
+   sudo systemctl mask hciuart.service  
+   sudo reboot`  
 3. Install pyserial with:
    `pip install pyserial`
 
