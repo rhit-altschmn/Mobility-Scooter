@@ -23,5 +23,10 @@ Setup procedure on a new Pi is as follows:
    `pip install pyserial`
 
 ## Code
-Please see ultrasonic.py for example code on using the sensors. If the serial ports are not working you can verify the ports with `ls /dev/ttyAMA`. The CPU speed function is useful for checking the load cuased by the sensors, with speeds below 1100 being ideal for continouse use without cooling.
+Please see ultrasonic.py for example code on using the sensors. If the serial ports are not working you can verify the ports with `ls /dev/ttyAMA`. The CPU speed function is useful for checking the load cuased by the sensors, with speeds below 1100 being ideal for continouse use without cooling. For a Raspberry Pi 4B the wiring must be done as follows:
+	Sensor 1: Blue(TX) to GPIO14, Green(RX) to GPIO15
+	Sensor 2: TX to GPIO4, RX to GPIO5
+	Sensor 3: TX to GPIO8, RX to GPIO9
+	Sensor 4: TX to GPIO12, RX to GPIO13
+The final intent for the sensors is to read distance and limit movement such that you cannot move closer to an object once a certain threshold is met. This is not yet implemented into the controls code.
 
