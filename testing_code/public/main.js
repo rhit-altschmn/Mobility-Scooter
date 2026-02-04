@@ -41,6 +41,7 @@ async function sendCommand(command){
     let senseStrVal = respArray[2];
 
     if (headingVal.includes("-")){
+
         const infoText = "public--Heading: " + headingVal.slice(1) + "deg Right     Sensors: " + senseStrVal
         document.querySelector("#scooterInfo").innerHTML = infoText;
     }
@@ -50,6 +51,7 @@ async function sendCommand(command){
     }
     else{
         const infoText = "public--Heading: " + headingVal + "deg Left             Sensors: " + senseStrVal
+
         document.querySelector("#scooterInfo").innerHTML = infoText;
     }
 

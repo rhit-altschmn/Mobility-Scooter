@@ -10,10 +10,12 @@ GPIO.setup(35,GPIO.OUT) # relay 2 hi/lo
 pwm = GPIO.PWM(40,1000) #set duty cycle to 50Hz or 20 ms
 pwm2 = GPIO.PWM(37,1000) #set duty cycle to 50Hz or 20 ms
 #operating frequency is 20Hz-22khz
-x = 1 #command input #1 for forward, -1 for backward
+
+x = -1 #command input #1 for forward, -1 for backward
 for i in range(1,20,1):
-	pwm.start(50-20*x) #sets pwm to 7.5% of duty cycle, or 1.5ms
-	pwm2.start(50+20*x) #sets pwm to 7.5% of duty cycle, or 1.5ms
+	pwm.start(50+20*x) #sets pwm to 7.5% of duty cycle, or 1.5ms
+	pwm2.start(50-20*x) #sets pwm to 7.5% of duty cycle, or 1.5ms
+
 	sleep(.25)
 
 	GPIO.output(38, 0)
