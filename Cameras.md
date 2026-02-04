@@ -39,12 +39,7 @@ A single display window is designed to showcase the selected camera view. Three 
 
 These controls enable flexible and efficient monitoring during teleoperation.
 
-For reference, the implementation code can be found in:
 
-- 
-- 
--  
-- 
 
 ---
 
