@@ -22,8 +22,8 @@ password:scooter1
 ## Software
 * scooterSite.py - runs the flask site html and handles camera frame creation and streaming to site
 * templates/index.html - the html for the flask site
-* public/main.js - the javascript to handle button pushes on the html
-* scotterController.py - does all the backend scooter control:
+* static/main.js - the javascript to handle button pushes on the html
+* scooterController.py - does all the backend scooter control:
   - initializes all the GPIO pins and serial ports
   - calls the appropriate functions for moving & turning scooter
   - handles ultrasonics gets readings and publishes them.
