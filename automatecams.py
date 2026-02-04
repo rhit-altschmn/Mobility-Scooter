@@ -1,31 +1,27 @@
-import flask
+import cv2
+from flask import Flask, render_template, Response
+import time
 import threading
 import scooterController 
 import cv2
-from time import sleep
 from picamera2 import Picamera2, Preview
 
-app = flask.Flask(__name__,
-                  static_url_path="",
-                  static_folder="static")
+app = Flask(__name__)
 
 serial_lock = threading.Lock()
-# cont.__init__(cont)
+
+
 # --- Setup Pi Camera ---
 pi_cam = Picamera2()
 camera_config = pi_cam.create_preview_configuration()
 pi_cam.configure(camera_config)
 pi_cam.start()
-
-sleep(1)  
+time.sleep(1)  
 
 live_camera = "pi" #default ---can be changed
 # --- Setup USB cameras ---
-#check the ports to be sure on the pi
 usb_cam0 = cv2.VideoCapture(0)   # side / forward /reverse
 usb_cam2 = cv2.VideoCapture(2)   # side / forward /reverse
-
-
 #---Scooter control -----
 cont = scooterController.scooterController()
 
@@ -67,7 +63,7 @@ def get_all_frames():
 
         else:
             print("INVALID CAMERA:", live_camera)
-            sleep(0.1)
+            time.sleep(0.1)
             continue
 
         # JPEG things
@@ -78,7 +74,8 @@ def get_all_frames():
         #Yield Magic
         yield (b'--frame\r\n'
                b'Content-Type: image/jpeg\r\n\r\n' + jpeg.tobytes() + b'\r\n')
-        sleep(0.75)  # controls the frames/sec of camera feed
+        
+        time.sleep(0.75) #controls frames per second
 
 
 
@@ -91,36 +88,39 @@ def set_camera(cam_name):
         return "OK", 200
     else:
         return "Invalid camera", 400
-   
-
-@app.route('/video_feed')           
+        
+@app.route('/video_feed')
 def video_feed():
-    return flask.Response(get_all_frames(),
-                    mimetype='multipart/x-mixed-replace; boundary=frame') 
-                   
+    return Response(get_all_frames(),
+                    mimetype='multipart/x-mixed-replace; boundary=frame')    
 @app.route('/')
 def index():
-    return flask.render_template('index.html')
-
-
-
+    
+    return render_template('index.html')
+    
 @app.route("/api/<command>")
 def command_api(command):
-    
     with serial_lock:
+        # pl = PlateLoader()
+        # #/dev/ttyUSB0 for USB plateloader  
+        # # /dev/ttyACM0 for COM port
+        # #Be sure to change it in all 3 places!
+        # pl.connect ("/dev/ttyUSB0")  
+        # resp = pl.send_command(command)
+        # pl.disconnect()
+
         
         resp_cmd,heading,dists = cont.controlCommand(command)
         print(f"Site Incoming command: {resp_cmd} Heading:{heading} Distances:{dists}")
         response = resp_cmd + "?" + str(heading) +"?" + str(dists)
         print(response)
         return response
-    
-  
+
 if __name__ == '__main__':
     try:
         app.run(host='0.0.0.0', port=5000, debug=False, threaded=True)
     finally:
-        usb_cam0.release()
+        #usb_cam0.release()
         usb_cam2.release()
         pi_cam.stop()
         cv2.destroyAllWindows()

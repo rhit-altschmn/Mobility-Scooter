@@ -14,7 +14,7 @@ function main(){
         sendCommand("FORWARD");
     };
     document.querySelector("#B").onclick = () => {
-        sendCommand("BACKWARD");
+        sendCommand("REVERSE");
     };
     document.querySelector("#L").onclick = () => {
         sendCommand("LEFT");
@@ -41,15 +41,15 @@ async function sendCommand(command){
     let senseStrVal = respArray[2];
 
     if (headingVal.includes("-")){
-        const infoText = "Heading: " + headingVal.slice(1) + "deg Right     Sensors: " + senseStrVal
+        const infoText = "public--Heading: " + headingVal.slice(1) + "deg Right     Sensors: " + senseStrVal
         document.querySelector("#scooterInfo").innerHTML = infoText;
     }
     else if (headingVal == "0"){
-        const infoText = "Heading: Straight Ahead     Sensors: " + senseStrVal
+        const infoText = "public--Heading: Straight Ahead     Sensors: " + senseStrVal
         document.querySelector("#scooterInfo").innerHTML = infoText;
     }
     else{
-        const infoText = "Heading: " + headingVal + "deg Left     Sensors: " + senseStrVal
+        const infoText = "public--Heading: " + headingVal + "deg Left             Sensors: " + senseStrVal
         document.querySelector("#scooterInfo").innerHTML = infoText;
     }
 
