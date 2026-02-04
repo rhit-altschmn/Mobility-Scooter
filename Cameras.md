@@ -20,6 +20,11 @@ The PiCamera is connected directly to the Raspberry Pi 4B through the dedicated 
 
 For demonstration purposes, non waterproof cameras were selected to reduce cost. However, these cameras can be enclosed in waterproof housings for outdoor or adverse weather use.
 
+## Specifications
+-  PiCamera            - https://www.raspberrypi.com/documentation/accessories/camera.html#camera-module-2
+-  USB Camera(FIT0892) - https://www.digikey.com/en/products/detail/dfrobot/FIT0892/18069226
+   
+
 ---
 
 ## Integration into the General System
@@ -36,10 +41,10 @@ These controls enable flexible and efficient monitoring during teleoperation.
 
 For reference, the implementation code can be found in:
 
-- ______  
-- ______  
-- ______  
-- ______  
+- 
+- 
+-  
+- 
 
 ---
 
