@@ -1,6 +1,7 @@
 # Mobility-Scooter
-This is a repo to handle code for automating a mobility scooter. A joint partnership between Intro to Robotics team and Dr. Bill Smart's lab.
+This is a repo to handle code for automating a mobility scooter. A joint partnership between Intro to Robotics team and Dr. Bill Smart's lab. For this project, we added cameras and sensors to the scooter frame, designed a steering system to drive the scooter from afar, and hacked into the scooter's electrical system to power our new electronics. For more information about each of these systems please click the associated link. [Camera System](Cameras.md), [Sensors](Sensors.md), [Steering] (SteeringSystem.md), [Electrical System](driveANDelectrical.md)
 Quick guide to markdown (https://www.markdownguide.org/basic-syntax/#links)
+
 
 ## Hardware
 * Raspberry Pi4 - the brain that runs code and hosts the flask server
