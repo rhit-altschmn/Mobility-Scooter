@@ -1,6 +1,11 @@
 # Mobility-Scooter
-This is a repo to handle code for automating a mobility scooter. A joint partnership between Intro to Robotics team and Dr. Bill Smart's lab. For this project, we added cameras and sensors to the scooter frame, designed a steering system to drive the scooter from afar, and hacked into the scooter's electrical system to power our new electronics. For more information about each of these systems please click the associated link. [Camera System](Cameras.md), [Sensors](Sensors.md), [Steering](SteeringSystem.md), [Electrical System](driveANDelectrical.md)
-Quick guide to markdown (https://www.markdownguide.org/basic-syntax/#links)
+This is a repo to handle code for automating a mobility scooter. A joint partnership between Intro to Robotics team and Dr. Bill Smart's lab. For this project, we added cameras and sensors to the scooter frame, designed a steering system to drive the scooter from afar, and hacked into the scooter's electrical system to power our new electronics. For more information about each of these systems please click the associated link. [Camera System](Cameras.md), [Sensors](Sensors.md), [Steering](SteeringSystem.md), [Electrical System](driveANDelectrical.md)  The scooter is teleoperated throuh a flask server hosted on the onboard Raspberry Pi. An external device can connect to the flask server by being on the same wifi network as the pi and entering the Pi IP address into the search bar. 
+
+   
+ <img src="scooter.png" width="25%">  &emsp; &emsp; &emsp; &emsp;    <img src="scooterGUI.png" width="25%"> <br>
+ &emsp; &emsp; &emsp; &emsp;  The Scooter   &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;       Scooter Graphical User Interface 
+
+<!--Quick guide to markdown (https://www.markdownguide.org/basic-syntax/#links)-->
 
 
 ## Hardware
